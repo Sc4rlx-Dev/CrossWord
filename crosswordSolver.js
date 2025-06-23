@@ -22,15 +22,8 @@ function parsPuzzle(puzzleString) {
 //phase 2 creat a list of valid works
 function findSlots(grid) {
     const slots = [];
-    let res = parsPuzzle(grid);
     const rows = grid.length;
     const cols = grid[0].length;
-    // const rows = res.length;
-    // const cols = res[0].length;
-
-    // console.log("rows = ", rows)
-    // console.log("cols = ", cols)
-    // console.log(grid)
 
     for (let r = 0; r < rows; r++) {
         for (let c = 0; c < cols; c++) {
@@ -75,7 +68,6 @@ function findSlots(grid) {
                     dir : 'down',
                     length: len
                 });                
-                // console.log(r, c)   
             }
         }
     }
@@ -85,25 +77,24 @@ function findSlots(grid) {
 
 
 
-const puzzleString = "2001\n0..0\n1010\n0..0";
+const puzzleString = "2001\n0..0\n1000\n0..0";
 const grid = parsPuzzle(puzzleString);
-console.log(grid)
-console.log(findSlots(grid));
+const slots = findSlots(grid)
+console.log(slots)
 
-
-const puzzle = `...1...........
-..1000001000...
-...0....0......
-.1......0...1..
-.0....100000000
-100000..0...0..
-.0.....1001000.
-.0.1....0.0....
-.10000000.0....
-.0.0......0....
-.0.0.....100...
-...0......0....
-..........0....`
+// const puzzle = `...1...........
+// ..1000001000...
+// ...0....0......
+// .1......0...1..
+// .0....100000000
+// 100000..0...0..
+// .0.....1001000.
+// .0.1....0.0....
+// .10000000.0....
+// .0.0......0....
+// .0.0.....100...
+// ...0......0....
+// ..........0....`
 
 // console.log((parsPuzzle(findSlots(puzzleString))))
 
