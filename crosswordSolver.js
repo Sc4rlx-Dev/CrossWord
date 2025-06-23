@@ -23,15 +23,14 @@ function parsPuzzle(puzzleString) {
 function findSlots(grid) {
     const slots = [];
     let res = parsPuzzle(grid);
-    // const rows = grid.length;
-    // const cols = grid[0].length;
-    const rows = res.length;
-    const cols = res[0].length;
+    const rows = grid.length;
+    const cols = grid[0].length;
+    // const rows = res.length;
+    // const cols = res[0].length;
 
     // console.log("rows = ", rows)
     // console.log("cols = ", cols)
     // console.log(grid)
-    // console.log(res)
 
     for (let r = 0; r < rows; r++) {
         for (let c = 0; c < cols; c++) {
@@ -57,7 +56,6 @@ function findSlots(grid) {
                     length: len
                 });
             }
-                        
             //try to go down
             //only if  cell is 2 "start boht ways", or cell is 1 and did not go across
             const isTwo = cell === '2';
@@ -77,21 +75,20 @@ function findSlots(grid) {
                     dir : 'down',
                     length: len
                 });                
-                return slots;
+                // console.log(r, c)   
             }
         }
     }
-
+    return slots;
 }
 
 
 
 
-
-
-
 const puzzleString = "2001\n0..0\n1010\n0..0";
-console.log(findSlots(puzzleString));
+const grid = parsPuzzle(puzzleString);
+console.log(grid)
+console.log(findSlots(grid));
 
 
 const puzzle = `...1...........
