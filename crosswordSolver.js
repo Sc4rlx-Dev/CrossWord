@@ -22,26 +22,76 @@ function parsPuzzle(puzzleString) {
 //phase 2 creat a list of valid works
 function findSlots(grid) {
     const slots = [];
-    // let res = parsPuzzle(grid);
-    const rows = grid.length;
-    const cols = grid[0].length;
+    let res = parsPuzzle(grid);
+    // const rows = grid.length;
+    // const cols = grid[0].length;
+    const rows = res.length;
+    const cols = res[0].length;
 
     // console.log("rows = ", rows)
     // console.log("cols = ", cols)
     // console.log(grid)
+    // console.log(res)
 
     for (let r = 0; r < rows; r++) {
         for (let c = 0; c < cols; c++) {
             const cell = grid[r][c];
-
-            if (cell != 1 && cell != 2) {
+            
+            // console.log("cell in loop", cell)
+            if (cell !== '1' && cell !== '2') {
                 continue;
+            }
+            //try to go across
+            if (c + 1 < cols && grid[r][c + 1] !== '.') {
+                let len = 1;
+                let cc = c + 1;
+
+                while(cc < cols && grid[r][cc] !== '.') {
+                    len++;
+                    cc++;
+                }
+                slots.push({
+                    row: r,
+                    col: c,
+                    dir: 'across',
+                    length: len
+                });
+            }
+                        
+            //try to go down
+            //only if  cell is 2 "start boht ways", or cell is 1 and did not go across
+            const isTwo = cell === '2';
+            const isOne = cell === '1' && !(c + 1 < cols && grid[r][c + 1] !== '.');
+            
+            if ((isTwo || isOne) && r + 1 < rows && grid[r + 1][c] !== '.') {
+                let len = 1;
+                let rr = r + 1;
+                
+                while(rr < rows && grid[rr][c] !== '.') {
+                    len++;
+                    rr++;
+                }
+                slots.push({
+                    row: r,
+                    col: c,
+                    dir : 'down',
+                    length: len
+                });                
+                return slots;
             }
         }
     }
 
 }
 
+
+
+
+
+
+
+const puzzleString = "2001\n0..0\n1010\n0..0";
+console.log(findSlots(puzzleString));
 
 
 const puzzle = `...1...........
@@ -58,8 +108,6 @@ const puzzle = `...1...........
 ...0......0....
 ..........0....`
 
-const puzzleString = "2001\n0..0\n1000\n0..0";
-console.log(findSlots(puzzle));
 // console.log((parsPuzzle(findSlots(puzzleString))))
 
 
