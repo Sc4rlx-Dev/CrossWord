@@ -110,7 +110,7 @@ function solve(grid, slots, words, used, index, res) {
 function crosswordSolver(puzzle, words) {
     
     //first step validate inputs
-    if (typeof puzzle !== 'String' || !Array.isArray(words)) {
+    if (typeof puzzle !== 'string' || !Array.isArray(words)) {
         console.log('Error');
         console.log("here")
         return;
@@ -131,7 +131,7 @@ function crosswordSolver(puzzle, words) {
     }
     
     const Unique = new Set(words); //copie unique words in var
-    if (Unique !== words.length) {
+    if (Unique.size !== words.length) {
         console.log('Error');
         return;
     } 
