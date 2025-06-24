@@ -76,7 +76,7 @@ function findSlots(grid) {
 }
 
 function cloneGrid(grid) {
-    return grid.map(row => row.splice());
+    return grid.map(row => row.slice());
 }
 
 // i have to solve the puzzle imma use backtracking i prepared the functions helpers 
