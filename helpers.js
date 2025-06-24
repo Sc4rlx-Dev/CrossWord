@@ -27,15 +27,16 @@ function putWord(grid, word, slot) {
     const {row, col, dir, length} = slot;
     const changed = []; //list to track
 
-    for (i = 0; i < length; i++) {
+    for (let i = 0; i < length; i++) {
         const r = dir === 'across' ? row : row + i; //increase row to go down
         const c = dir === 'across' ? col + i : col; //increase col to go across
 
         if (grid[r][c] === '0') {
             grid[r][c] = word[i];
-            changed.push(r, c); //remember what changeed 
+            changed.push([r, c]); //remember what changeed 
         }
     }
+    console.log("hellllo")
     return changed;
 }
 
