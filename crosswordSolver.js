@@ -1,4 +1,7 @@
-const wordsList = ['casa', 'alan', 'ciao', 'anta'];
+import { canFit, putWord, removeWord } from './helpers.js';
+
+
+// const wordsList = ['casa', 'alan', 'ciao', 'anta'];
 
 function parsPuzzle(puzzleString) {
     if (typeof puzzleString !== 'string' || puzzleString == "") {
@@ -74,13 +77,41 @@ function findSlots(grid) {
     return slots;
 }
 
+const ggrid = [
+  [ '0', '0', '0', '0' ],
+  [ '0', '.', '.', '0' ],
+  [ '0', '0', '0', '0' ],
+  [ '0', '.', '.', '0' ]
+];
+
+const slot = {
+    row: 0,
+    col: 0,
+    dir: 'across',
+    length: 4
+
+}
+
+console.log(canFit(ggrid, "casa", slot));
 
 
 
-const puzzleString = "2001\n0..0\n1000\n0..0";
-const grid = parsPuzzle(puzzleString);
-const slots = findSlots(grid)
-console.log(slots)
+
+
+
+// const puzzleString = "0000\n0..0\n0000\n0..0";
+// const grid = parsPuzzle(puzzleString);
+// const slots = findSlots(grid)
+// console.log(grid)
+// console.log(slots)
+
+
+
+
+
+
+
+
 
 // const puzzle = `...1...........
 // ..1000001000...
