@@ -94,10 +94,10 @@ function solve(grid, slots, words, used, index, res) {
         let word = words[i];
 
         if(canFit(grid, word, slot) === true) {
-            let changed = putWord(grid, words, slot);
+            let changed = putWord(grid, word, slot);
             used[i] = true;
 
-            solve(grid, slots, word, used, index, res);
+            solve(grid, slots, words, used, index + 1, res);
             used[i] = false;
             removeWord(grid, changed); //backtrack
         }
@@ -141,6 +141,8 @@ function crosswordSolver(puzzle, words) {
     const res = [];
     
     solve(grid, slots, words, used, 0, res);
+
+    console.log(res.length);
     
     if (res.length === 1) {
         const finalGrid = res[0];
