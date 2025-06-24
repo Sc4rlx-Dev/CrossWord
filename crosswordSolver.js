@@ -1,8 +1,6 @@
 import { canFit, putWord, removeWord } from './helpers.js';
 
 
-// const wordsList = ['casa', 'alan', 'ciao', 'anta'];
-
 function parsPuzzle(puzzleString) {
     if (typeof puzzleString !== 'string' || puzzleString == "") {
         return null;
@@ -77,62 +75,83 @@ function findSlots(grid) {
     return slots;
 }
 
-const ggrid = [
-  [ '0', '0', '0', '0' ],
-  [ '0', '.', '.', '0' ],
-  [ '0', '0', '0', '0' ],
-  [ '0', '.', '.', '0' ]
-];
-
-const slot = {
-    row: 0,
-    col: 0,
-    dir: 'across',
-    length: 4
-
+function cloneGrid(grid) {
+    return grid.map(row => row.splice());
 }
 
-console.log(canFit(ggrid, "casa", slot));
+// i have to solve the puzzle imma use backtracking i prepared the functions helpers 
+function solve(grid, slots, words, used, index, res) {
+
+    if (index === slots.length) {
+        res.push(cloneGrid(grid)) //clone it to save to see how many soloutin i hace
+        return;
+    }
+    const slot = slots[index];
+
+    for (let i = 0; i < words.length; i++) {
+
+        if (used[i]) continue;
+        let word = words[i];
+
+        if(canFit(grid, word, slot) === true) {
+            let changed = putWord(grid, words, slot);
+            used[i] = true;
+
+            solve(grid, slots, word, used, index, res);
+            used[i] = false;
+            removeWord(grid, changed); //backtrack
+        }
+
+    }
+}
 
 
 
-
-
-
-// const puzzleString = "0000\n0..0\n0000\n0..0";
-// const grid = parsPuzzle(puzzleString);
-// const slots = findSlots(grid)
-// console.log(grid)
-// console.log(slots)
-
-
-
-
-
-
-
-
-
-// const puzzle = `...1...........
-// ..1000001000...
-// ...0....0......
-// .1......0...1..
-// .0....100000000
-// 100000..0...0..
-// .0.....1001000.
-// .0.1....0.0....
-// .10000000.0....
-// .0.0......0....
-// .0.0.....100...
-// ...0......0....
-// ..........0....`
-
-// console.log((parsPuzzle(findSlots(puzzleString))))
-
-
-// function crosswordSolver(puzzleString, wordList) {
+function crosswordSolver(puzzle, words) {
     
-// }    
+    //first step validate inputs
+    if (typeof puzzle !== 'String' || !Array.isArray(words)) {
+        console.log('Error');
+        console.log("here")
+        return;
+    }
+    
+    //clean anf parse the puszle into grid
+    const grid = parsPuzzle(puzzle);
+    if(!grid) {
+        console.log('Errur');
+        return;
+    }
+    
+    //find all wordds slot
+    const slots = findSlots(grid);
+    if (slots.length !== words.length) {
+        console.log('Error');
+        return;
+    }
+    
+    const Unique = new Set(words); //copie unique words in var
+    if (Unique !== words.length) {
+        console.log('Error');
+        return;
+    } 
+    
+    //prepare to solve
+    const used = Array(words.length).fill(false); //fill false for all words unused yet
+    const res = [];
+    
+    solve(grid, slots, words, used, 0, res);
+    
+    if (res.length === 1) {
+        const finalGrid = res[0];
+        const lastRes = finalGrid.map(row => row.join("")).join("\n"); //get row cell and joing to be string 
+        console.log(lastRes);
+    } else {
+        console.log("Erprr");
+    }
+    
+}
 
-
-
+const puzzle = "2001\n0..0\n1000\n0..0"
+const words = ['casa', 'alan', 'ciao', 'anta']
+console.log(crosswordSolver(puzzle, words));
