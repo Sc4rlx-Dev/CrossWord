@@ -34,13 +34,13 @@ let slots = []
                 }
 
                 if (w + 1 < arr.length && arr[w + 1][h] !== '.') {
-                    let lenght = 1
-                    while (w + lenght < arr.length && arr[w + lenght][h] != '.'){
+                    let lenth = 1
+                    while (w + lenth < arr.length && arr[w + lenth][h] != '.'){
                         // console.log(lenght)
-                        lenght++
+                        lenth++
                     }
-                    if (lenght > 1) {
-                        slots.push({ row: w, col: h, dir: 'down', length: lenght });
+                    if (lenth > 1) {
+                        slots.push({ row: w, col: h, dir: 'down', length: lenth });
                     }
                     
                 }
